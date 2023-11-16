@@ -1,0 +1,19 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+  <h1>{{ genre.name }} Genre</h1>
+
+  <h2>Artists</h2>
+  <ul>
+    {% for artist in artists %}
+      <li><a href="{% url 'artist_detail' pk=artist.pk %}">{{ artist.artist_name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h2>Albums</h2>
+  <ul>
+    {% for album in albums %}
+      <li><a href="{% url 'album_detail' pk=album.pk %}">{{ album.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

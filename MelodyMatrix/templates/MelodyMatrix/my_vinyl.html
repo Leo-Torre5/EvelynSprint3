@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <h1>Borrowed Vinyl</h1>
+
+    {% if albuminstance_list %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Album Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for albuminst in albuminstance_list %}
+                    <tr class="{% if albuminst.is_overdue %}text-danger{% endif %}">
+                        <td><a href="{% url 'album_detail' albuminst.album.pk %}">{{ albuminst.album.title }}</a></td>
+                        <td>{% if albuminst.status == 'o' %}On Loan{% elif albuminst.status == 'r' %}Reserved{% endif %}</td>
+                        <td>{{ albuminst.due_back }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>There are no vinyl borrowed.</p>
+    {% endif %}
+{% endblock %}
+</div>
+</html>

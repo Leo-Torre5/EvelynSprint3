@@ -1,0 +1,28 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %} 
+  <h1>{{ album.title }}</h1>
+     <div>
+    {% if album.album_image %}
+        <img src="{{ album.album_image.url }}">
+    {% endif %}
+    </div>
+  <p><strong>Artist:</strong> <a href="{% url 'artist_detail' album.artist.id %}">{{ album.artist }}</a></p>
+  <p><strong>About Album:</strong> {{ album.summary }}</p>
+  <p><strong>Genre:</strong> {{ album.genre.all|join:", " }}</p>
+    <p><strong>Duration:</strong> {{ album.duration}}</p>
+    <p><strong>Number of Tracks: {{ album.tracks }}</p>
+
+<h2>Songs:</h2>
+<ul>
+  {% for song in album.songs.all %}
+    <li>{{ song.title }}</li>
+  {% endfor %}
+</ul>
+
+ 
+  <div style="margin-left:20px;margin-top:20px">
+ 
+    {# Access the available_copies queryset passed from the view #}
+    <p>Available Copies: {{ available_copies.count }}</p>
+  </div>
+{% endblock %}

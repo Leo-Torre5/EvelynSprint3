@@ -1,0 +1,46 @@
+{% extends 'MelodyMatrix/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+  <h2>Search Results for "{{ query }}"</h2>
+
+  {% if artists %}
+    <h3>Artists</h3>
+    <ul>
+      {% for artist in artists %}
+        <li><a href="{% url 'artist_detail' artist.id %}">{{ artist.artist_name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if albums %}
+    <h3>Albums</h3>
+    <ul>
+      {% for album in albums %}
+        <li><a href="{% url 'album_detail' album.id %}">{{ album.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if genres %}
+    <h3>Genres</h3>
+    <ul>
+      {% for genre in genres %}
+        <li><a href="{% url 'genre_detail' genre.id %}">{{ genre.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if songs %}
+    <h3>Songs</h3>
+    <ul>
+      {% for song, album in songs %}
+        <li>
+          <a href="{% url 'album_detail' album.id %}">{{ song.title }}</a>
+          in <a href="{% url 'album_detail' album.id %}">{{ album.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

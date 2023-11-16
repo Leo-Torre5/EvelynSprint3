@@ -1,0 +1,42 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    {% if perms.MelodyMatrix.edit_albuminstance %}
+        <h1>Manage Inventory</h1>
+
+        {% if albuminstance_list %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Borrower</th>
+                        <th>Due Date</th> {# Added Due Date column #}
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for copy in albuminstance_list %}
+                        <tr>
+                            <td><a href="{% url 'album_detail' copy.album.pk %}">{{ copy.album.title }}</a></td>
+                            <td>{{ copy.get_status_display }}</td>
+                            <td>{{ copy.borrower.username }}</td>
+                            <td>{{ copy.due_back|default:"N/A" }}</td> {# Display Due Date or "N/A" if None #}
+                            <td>
+                                {% if copy.status == 'a' %}
+                                    <a href="{% url 'loan_album_librarian' copy.id %}">Loan</a>
+                                {% elif copy.status == 'o' or copy.status == 'r' %}
+                                    <a href="{% url 'return_album' copy.id %}">Return</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no albums available.</p>
+        {% endif %}
+    {% else %}
+        <p>You do not have authorization to view this feature</p>
+    {% endif %}
+{% endblock %}

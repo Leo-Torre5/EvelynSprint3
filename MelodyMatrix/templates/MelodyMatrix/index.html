@@ -1,0 +1,14 @@
+{% extends 'MelodyMatrix/base.html' %}
+
+{% block content %}
+  <h1>Melody Matrix</h1>
+    <p><strong>Your Soundtrack, Your Library</strong></p>
+  <p>The library has the following Artists and Albums:</p>
+  <ul>
+    <li><strong>Albums:</strong> {{ num_albums }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Artists:</strong> {{ num_artists }}</li>
+  </ul>
+    <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <div class="container rounded bg-white mt-2 mb-2">
+                <div class="row">
+                    <div class="col-md-5 border-right">
+                        <div class="d-flex flex-column align-items-center p-3 py-5">
+                            {% if user.userprofile.image %}
+                                <img class="rounded-circle mt-5 mb-3" width="150px" src="{{ user.userprofile.image.url }}">
+                            {% else %}
+                                <img class="rounded-circle mt-5 mb-3" width="150px" src="{% static 'locallibrary/media/default_image/Defaut.png' %}">
+                            {% endif %}
+                            <h2 class="account-heading">{{ user.username }}</h2>
+                            <p class="text-secondary">{{ user.email }}</p>
+                            <a href="{% url 'my_vinyl' %}" class="btn btn-dark btn-sm">My Borrowed Vinyl</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 border-right">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <h3>Update Profile Information</h3>
+                                <div class="row mt-2">
+                                    {{ u_form|crispy }}
+                                </div>
+                                <div class="row mt-3">
+                                    {{ p_form.first_name|as_crispy_field }}
+                                    {{ p_form.last_name|as_crispy_field }}
+                                    {{ p_form.address|as_crispy_field }}
+                                    {{ p_form.city|as_crispy_field }}
+                                    {{ p_form.state|as_crispy_field }}
+                                    {{ p_form.zip|as_crispy_field }}
+                                    {{ p_form.image|as_crispy_field }}
+                                </div>
+                            </fieldset>
+                            <!-- New fieldset for updating profile picture -->
+<p></p>
+                            <div class="form-group">
+                                <a href="{% url 'view_profile' %}" class="btn btn-dark">Back</a>
+                                <button class="btn btn-dark" type="submit">Update Info</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

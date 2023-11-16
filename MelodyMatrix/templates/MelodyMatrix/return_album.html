@@ -1,0 +1,11 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Return Album</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Return Album"> <a href="{% url 'all_available' %}" class="btn btn-secondary">Back to Manage Inventory</a>
+    </form>
+{% endblock %}

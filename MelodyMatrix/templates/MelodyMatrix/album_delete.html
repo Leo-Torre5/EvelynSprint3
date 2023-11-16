@@ -1,0 +1,17 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    {% if perms.MelodyMatrix.delete_album %}
+        <h1>Delete Album {{ album.title }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+            <a href="{% url 'album_detail' pk=album.pk %}">Cancel</a>
+        </form>
+    {% else %}
+        <div class="alert alert-danger">
+            You do not have permission to delete this album.
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Back to Home</a>
+    {% endif %}
+{% endblock %}

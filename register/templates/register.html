@@ -1,0 +1,28 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+{% extends "MelodyMatrix/base.html" %}
+
+{% block title %}Create an Account{% endblock %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <!-- Additional fields for UserProfile -->
+        {{ form.profile_field1|crispy }}
+        {{ form.profile_field2|crispy }}
+        <!-- Add more fields as needed -->
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+
+    <p><strong>Already have an account?</strong>
+        <a href="{% url 'login' %}"> Login Now</a>
+    </p>
+{% endblock %}
+</html>

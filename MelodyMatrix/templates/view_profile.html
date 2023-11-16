@@ -1,0 +1,53 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <div class="container rounded bg-white mt-2 mb-2">
+                <div class="row">
+                    <div class="col-md-5 border-right">
+                        <div class="d-flex flex-column align-items-center p-3 py-5">
+                            {% if user_profile.image %}
+                                <img class="rounded-circle mt-5 mb-3" width="150px" src="{{ user_profile.image.url }}">
+                            {% else %}
+                                <img class="rounded-circle mt-5 mb-3" width="150px" src="{% static 'path/to/default/image.jpg' %}">
+                            {% endif %}
+                            <h2 class="account-heading">{{ user_profile.user.username }}</h2>
+                            <p class="text-secondary">{{ user_profile.user.email }}</p>
+                            <a href="{% url 'my_vinyl' %}" class="btn btn-dark btn-sm">My Borrowed Vinyl</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 border-right">
+                        <!-- Display user information here using Bootstrap classes -->
+                        <h3>Current Information</h3>
+                        <dl class="row mt-3">
+                            <dt class="col-sm-3">First Name:</dt>
+                            <dd class="col-sm-9">{{ user_profile.first_name }}</dd>
+
+                            <dt class="col-sm-3">Last Name:</dt>
+                            <dd class="col-sm-9">{{ user_profile.last_name }}</dd>
+
+                            <dt class="col-sm-3">Address:</dt>
+                            <dd class="col-sm-9">{{ user_profile.address }}</dd>
+
+                            <dt class="col-sm-3">City:</dt>
+                            <dd class="col-sm-9">{{ user_profile.city }}</dd>
+
+                            <dt class="col-sm-3">State:</dt>
+                            <dd class="col-sm-9">{{ user_profile.state }}</dd>
+
+                            <dt class="col-sm-3">Zip:</dt>
+                            <dd class="col-sm-9">{{ user_profile.zip }}</dd>
+                        </dl>
+
+                        <div class="text-start mt-3">
+                            <a href="{% url 'profile' %}" class="btn btn-dark btn-sm">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

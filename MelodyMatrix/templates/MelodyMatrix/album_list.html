@@ -1,0 +1,48 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <h1>Album List</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if album_list %}
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-secondary">
+                    <th>Album</th>
+                    {% if user.is_superuser %}
+                        <th>Delete</th>
+                        <th>Edit</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for album in album_list %}
+                    <tr>
+                        <td><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></td>
+                        {% if user.is_superuser %}
+                            {% if album.artist %}
+                                <td>Artist Exist - Cannot delete album</td>
+                            {% else %}
+                                <td>
+                                    <a href="{% url 'album_delete' pk=album.pk %}"
+                                       onclick="return confirm('Are you sure you want to delete?')"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            {% endif %}
+                            <td>
+                                <a href="{% url 'album_update' pk=album.pk %}" class="btn btn-primary">Edit Album</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>There are no albums in the library.</p>
+    {% endif %}
+{% endblock %}

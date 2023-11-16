@@ -1,0 +1,27 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    {% if perms.MelodyMatrix.create_artist or perms.MelodyMatrix.edit_artist %}
+        <h2>Edit Artist</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p></p>
+            <button class="btn btn-secondary" onclick="goBack()">Back</button>
+            <input type="submit" class="btn btn-primary" value="Save">
+
+        </form>
+    {% else %}
+        <div class="alert alert-danger">
+            You do not have permission to access this feature
+        </div>
+    {% endif %}
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}

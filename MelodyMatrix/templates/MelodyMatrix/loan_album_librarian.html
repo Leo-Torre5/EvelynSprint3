@@ -1,0 +1,10 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <h2>Loan Album</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Loan Album"> <a href="{% url 'all_available' %}" class="btn btn-secondary">Back To Manage Inventory</a>
+    </form>
+{% endblock %}

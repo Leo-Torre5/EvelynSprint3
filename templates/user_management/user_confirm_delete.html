@@ -1,0 +1,13 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+  <h1>Delete User</h1>
+
+  <p>Are you sure you want to delete the user '{{ object.username }}'?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+  <a href="{% url 'user_list' %}">Cancel</a>
+{% endblock %}

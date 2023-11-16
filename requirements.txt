@@ -1,0 +1,11 @@
+asgiref==3.7.2
+certifi==2023.7.22
+cffi==1.16.0
+cryptography==41.0.5
+Django==4.2.6
+django-crispy-forms==1.14.0
+Pillow==10.1.0
+pycparser==2.21
+pyOpenSSL==23.3.0
+sqlparse==0.4.4
+typing_extensions==4.8.0

@@ -1,0 +1,20 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+  <h1>{{ artist.artist_name }}</h1>
+    <div>
+    {% if artist.artist_image %}
+        <img src="{{ artist.artist_image.url }}">
+    {% endif %}
+    </div>
+    <p><strong>About Artist:</strong> {{ artist.summary }}</p>
+
+  <!-- List of Albums by this Artist -->
+  <h2>Albums</h2>
+  <ul>
+    {% for album in artist.album_set.all %}
+      <li>
+        <a href="{% url 'album_detail' album.id %}">{{ album.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
